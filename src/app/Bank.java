@@ -1,6 +1,7 @@
 package app;
 
 import java.util.ArrayList;
+import java.io.*;
 
 public class Bank {
 	// Variable for logging/not logging
@@ -77,6 +78,13 @@ public class Bank {
 
 	public void saveAccounts(String filename) {
 		// TODO
+		try {
+			FileWriter fw = new FileWriter("gamer.txt");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		log("Save not yet implemented.");
 	}
 
