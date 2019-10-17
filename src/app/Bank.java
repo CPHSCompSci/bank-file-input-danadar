@@ -151,6 +151,7 @@ public class Bank {
 			this.accountNumber = accountNum;
 			this.name = name;
 			this.balance = balance;
+			accountNumber = accountCounter++;
 		}
 
 		public String toString() {
