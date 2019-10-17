@@ -135,7 +135,6 @@ public class Main {
 				bank.saveAccounts(filename);
 				System.out.println("bye-bye");
 				break;
-			case 8:
 				
 			default:
 				System.out.println("Invalid input.");
