@@ -9,41 +9,15 @@ public class Main {
 		gamer();
 	}
 	
-	public static void example1()
-	{
-		Bank bank = new Bank("Bank of CPHS");
-		int ewbankAccountNo = bank.createAccount("Mr. Ewbank");
-		int howardAccountNo = bank.createAccount("Mr. Howard");
-		
-		bank.deposit(ewbankAccountNo, 25);
-		bank.deposit(howardAccountNo, 75);
-
-		bank.checkBalance(ewbankAccountNo);
-		bank.checkBalance(howardAccountNo);
-		
-		bank.withdraw(ewbankAccountNo, 10);
-		bank.closeAccount(howardAccountNo);
-		
-		bank.checkBalance(ewbankAccountNo);
-		bank.checkBalance(howardAccountNo);
-		
-	}
-	
 	public static void gamer()
 	{
 		Scanner input = new Scanner(System.in);
 		Bank bank = new Bank("Gamer Bank");
 		int accountNumber, amount;
 		boolean work;
+		String filename = "bankAccounts";
 		
-		System.out.println("Would you like to load from a file?(answer \"yes\" or \"no\")");
-		String load = input.nextLine();
-		if((load.toLowerCase()).contentEquals("yes"))
-		{
-			System.out.println("What is the name of the file you are loading from?");
-			load = input.nextLine();
-			bank.loadAccounts(load);
-		}
+		bank.loadAccounts(filename);
 		
 		int menu;
 		
@@ -121,6 +95,8 @@ public class Main {
 				System.out.println("What account number are you closing?");
 				bank.closeAccount(input.nextInt());
 				input.nextLine();
+				break;
+				
 			case 6:
 				System.out.println("What is the number of the account you are transferring from?");
 				System.out.print('>');
@@ -156,15 +132,7 @@ public class Main {
 				break;
 				
 			case 7:
-				System.out.println("Would you like to export the current storage to a file?(answer \"yes\" or \"no\")");
-				System.out.print('>');
-				String save = input.nextLine();
-				if((save.toLowerCase()).contentEquals("yes"))
-				{
-					System.out.println("What would you like to name the file you are saving to, without file type?");
-					save = input.nextLine();
-					bank.saveAccounts(save);
-				}
+				bank.saveAccounts(filename);
 				System.out.println("bye-bye");
 				break;
 			case 8:

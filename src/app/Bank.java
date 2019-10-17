@@ -7,7 +7,7 @@ import java.io.*;
 
 public class Bank {
 	// Variable for logging/not logging
-	private static final boolean LOG = true;
+	private static final boolean LOG = false;
 
 	private static int accountCounter = 1;
 	private String name;
@@ -80,13 +80,10 @@ public class Bank {
 
 	public void saveAccounts(String filename) {
 		try {
-			String name = filename + ".txt";
-			FileWriter fw = new FileWriter(name);
-			Account account = null;
-			for(int x = 0; x < accounts.size(); x++)
+			FileWriter fw = new FileWriter(filename + ".txt");
+			for(Account a: accounts)
 			{
-				account = accounts.get(x);
-				String write = account.toString();
+				String write = a.toString();
 				fw.append(write);
 				fw.append("\n");
 			}
@@ -99,8 +96,27 @@ public class Bank {
 	}
 
 	public void loadAccounts(String filename) {
-		//TODO
-		log("Load not yet implemented.");
+		try {
+			Scanner fileIn = new Scanner(new File(filename + ".txt"));
+			
+			while(fileIn.hasNextLine())
+			{
+				String line = fileIn.nextLine();
+				String[] split = line.split("::");
+				
+				int accountNum = Integer.parseInt((split[0]).substring(1));
+				String name = split[1];
+				int balance = Integer.parseInt(split[2].substring(1, split[2].length() - 1));
+				
+				Account a = new Account(accountNum, name, balance);
+				accounts.add(a);
+			}
+			System.out.println("Accounts successfully loaded.");
+			
+		} catch (FileNotFoundException e) {
+			
+			System.out.println("No saved account file found.");
+		}
 	}
 
 	private Account findAccount(int accountNumber) {
@@ -129,6 +145,12 @@ public class Bank {
 			this.name = name;
 			balance = 0;
 			accountNumber = accountCounter++;
+		}
+
+		public Account(int accountNum, String name, int balance) {
+			this.accountNumber = accountNum;
+			this.name = name;
+			this.balance = balance;
 		}
 
 		public String toString() {
